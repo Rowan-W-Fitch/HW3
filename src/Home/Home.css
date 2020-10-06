@@ -1,0 +1,12 @@
+.container{
+  background-image: linear-gradient(rgb(247, 179, 178), white);
+  margin: auto;
+  height: 100vh;
+  width: 100%;
+}
+
+.inner{
+  margin: 0 auto;
+  width: 90%;
+  background-color: white;
+}
