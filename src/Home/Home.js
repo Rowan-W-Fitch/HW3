@@ -9,7 +9,11 @@ class Home extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      data: data.recipes
+      data: data.recipes,
+      cals: null,
+      name: null,
+      prep: null,
+      cat: null
     }
 
     this.searchCalories = this.searchCalories.bind(this)
@@ -18,24 +22,57 @@ class Home extends React.Component {
     this.searchPrep = this.searchPrep.bind(this)
   }
 
-  searchCalories(cals){
-    const arr = this.state.data.filter(x => x.calories <= cals)
+  searchCalories(event){
+    this.setState({cals: event})
+  }
+
+  searchName(event){
+    this.setState({name: event.target.value})
+  }
+
+  searchCategory(event){
+    this.setState({cat: event.target.value})
+  }
+
+  searchPrep(event){
+    this.setState({prep: event})
+  }
+
+  filterCals(){
+    const arr = this.state.data.filter(x => x.calories <= this.state.cals)
     this.setState({data: arr})
   }
 
-  searchName(name){
-    const arr = this.state.data.filter(x => x.title.includes(name))
+  filterName(){
+    const arr = this.state.data.filter(x => x.title.toLowerCase().includes(this.state.name.toLowerCase()))
     this.setState({data: arr})
   }
 
-  searchCategory(cat){
-    const arr = this.state.data.filter(x => x.recipeCategory === cat)
+  filterPrep(){
+    const arr = this.state.data.filter(x => x.prepTime <= this.state.prep)
     this.setState({data: arr})
   }
 
-  searchPrep(prep){
-    const arr = this.state.data.filter(x => x.prepTime <= prep)
+  filterCat(){
+    const arr = this.state.data.filter(x => x.recipeCategory === this.state.cat)
     this.setState({data: arr})
+  }
+
+  clearState(){
+    this.setState({
+      data: data.recipes,
+      cals: '',
+      name: '',
+      prep: '',
+      cat: ''
+    })
+  }
+
+  async filterParams(){
+    if(this.state.cals) await this.filterCals()
+    if(this.state.name) await this.filterName()
+    if(this.state.prep) await this.filterPrep()
+    if(this.state.cat) await this.filterCat()
   }
 
 
@@ -45,52 +82,55 @@ class Home extends React.Component {
         <div class = "inner">
           <Navbar>
               <Navbar.Group align={Alignment.LEFT}>
-                  <Navbar.Heading>Blueprint</Navbar.Heading>
-                  <Navbar.Divider />
 
                   <InputGroup
+                    value = {this.state.name}
                     leftIcon="search"
-                    onChange={this.handleFilterChange}
+                    onChange={this.searchName}
                     placeholder="search by name..."
                     />
 
-                  <Navbar.Divider />
-                  <b>OR</b>
-                  <Navbar.Divider />
+                    <Navbar.Divider />
+
 
                   <NumericInput
+                  value = {this.state.cals}
                   allowNumericCharactersOnly = {true}
                   majorStepSize = {100}
                   min = {0}
                   placeholder="search by max calories..."
-                  onValueChange={this.handleValueChange}
+                  onValueChange={this.searchCalories}
                   />
 
                   <Navbar.Divider />
-                  <b>OR</b>
-                  <Navbar.Divider />
 
                   <NumericInput
+                  value = {this.state.prep}
                   allowNumericCharactersOnly = {true}
                   majorStepSize = {5}
                   min = {0}
                   placeholder="search by max prep time..."
-                  onValueChange={this.handleValueChange}
+                  onValueChange={this.searchPrep}
                   />
 
                   <Navbar.Divider />
-                  <b>OR</b>
-                  <Navbar.Divider />
 
                   <div class="bp3-select">
-                    <select>
-                      <option selected>Choose a Category</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                      <option value="4">Four</option>
+                    <select value = {this.state.cat} onChange={this.searchCategory}>
+                      <option value = {null} selected>Choose a Category</option>
+                      <option value="Appetizer">Appetizer</option>
+                      <option value="Entree">Entree</option>
+                      <option value="Dessert">Dessert</option>
                     </select>
                   </div>
+
+                  <Navbar.Divider />
+
+                  <Button onClick = {() => this.filterParams()}>Search</Button>
+
+                  <Navbar.Divider />
+
+                  <Button onClick = {() => this.clearState()}>Clear</Button>
               </Navbar.Group>
           </Navbar>
 
