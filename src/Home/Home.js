@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import data from "./recipe";
-import {Navbar, Alignment, Button, NumericInput, InputGroup} from "@blueprintjs/core"
-import "./Home.css"
+import {Navbar, Alignment, Button, NumericInput, InputGroup} from "@blueprintjs/core";
+import "./Home.css";
+import RecipeCard from '../components/RecipeCard/RecipeCard';
+
 class Home extends React.Component {
 
   constructor(props){
@@ -91,7 +93,21 @@ class Home extends React.Component {
                   </div>
               </Navbar.Group>
           </Navbar>
-          <h1 class="bp3-heading">H1 heading</h1>
+
+          <div className="heading">
+            <h3 class="bp3-heading">Search Results...</h3>
+          </div>
+          
+          {results &&
+            results.map(r => (
+              <div className="card">
+                <RecipeCard
+                  data={r}
+                />
+              </div>
+              )
+            )
+          }
         </div>
       </div>
     )
