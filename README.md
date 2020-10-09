@@ -2,11 +2,17 @@ First:
 
 install yarn https://classic.yarnpkg.com/en/docs/install/#windows-stable
 
+
+
+
 Second:
 
 ### `yarn install`
 
 installs all dependencies for the project
+
+
+
 
 Third:
 
