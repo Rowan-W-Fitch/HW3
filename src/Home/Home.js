@@ -10,6 +10,7 @@ class Home extends React.Component {
     super(props)
     this.state = {
       data: data.recipes,
+      resData: null,
       cals: null,
       name: null,
       prep: null,
@@ -40,27 +41,46 @@ class Home extends React.Component {
 
   filterCals(){
     const arr = this.state.data.filter(x => x.calories <= this.state.cals)
-    this.setState({data: arr})
+    this.setState({resData: arr})
   }
 
   filterName(){
-    const arr = this.state.data.filter(x => x.title.toLowerCase().includes(this.state.name.toLowerCase()))
-    this.setState({data: arr})
+    if(this.state.resData){
+      const arr = this.state.resData.filter(x => x.title.toLowerCase().includes(this.state.name.toLowerCase()))
+      this.setState({resData: arr})
+    }
+    else{
+      const arr = this.state.data.filter(x => x.title.toLowerCase().includes(this.state.name.toLowerCase()))
+      this.setState({resData: arr})
+    }
   }
 
   filterPrep(){
-    const arr = this.state.data.filter(x => x.prepTime <= this.state.prep)
-    this.setState({data: arr})
+    if(this.state.resData){
+      const arr = this.state.resData.filter(x => x.prepTime <= this.state.prep)
+      this.setState({resData: arr})
+    }
+    else{
+      const arr = this.state.data.filter(x => x.prepTime <= this.state.prep)
+      this.setState({resData: arr})
+    }
   }
 
   filterCat(){
-    const arr = this.state.data.filter(x => x.recipeCategory === this.state.cat)
-    this.setState({data: arr})
+    if(this.state.resData){
+      const arr = this.state.resData.filter(x => x.recipeCategory === this.state.cat)
+      this.setState({resData: arr})
+    }
+    else{
+      const arr = this.state.data.filter(x => x.recipeCategory === this.state.cat)
+      this.setState({resData: arr})
+    }
   }
 
   clearState(){
     this.setState({
       data: data.recipes,
+      resData: null,
       cals: '',
       name: '',
       prep: '',
@@ -135,11 +155,11 @@ class Home extends React.Component {
           </Navbar>
 
           <div className="heading">
-            <h3 class="bp3-heading">Search Results...</h3>
+            <h3 class="bp3-heading">{this.state.resData ? 'Search Results...' : 'Welcome to Rowan and Enriques Recipe Site'}</h3>
           </div>
-          
-          {results &&
-            results.map(r => (
+
+          {!this.state.resData &&
+            this.state.data.map(r => (
               <div className="card">
                 <RecipeCard
                   data={r}
@@ -147,6 +167,20 @@ class Home extends React.Component {
               </div>
               )
             )
+          }
+
+          {this.state.resData &&
+            this.state.resData.length > 0 ?
+            this.state.resData.map(r => (
+              <div className="card">
+                <RecipeCard
+                  data={r}
+                />
+              </div>
+              )
+            )
+            :
+            this.state.resData? 'No Results, Please Broaden Your Search' : ''
           }
         </div>
       </div>

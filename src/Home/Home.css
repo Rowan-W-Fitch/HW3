@@ -1,12 +1,15 @@
 .container{
+  background: linear-gradient(#e66465, #9198e5);
+  min-height:100vh;
   margin: auto;
-  height: 100vh;
+  height: 100%;
   width: 100%;
 }
 
 .inner{
   margin: 0 auto;
   width: 90%;
+  min-height:100vh;
   background-color: white;
 }
 
