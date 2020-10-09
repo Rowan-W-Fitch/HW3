@@ -21,11 +21,21 @@ class RecipeCard extends React.Component {
 
     return (
       <Card className="RecipeCard" elevation={Elevation.TWO}>
-        <h4>{title}</h4>
-        <img src={image} alt="some good shit" width="200" height="200"/>
-        <h5>Servings: {servings}</h5>
-        <h5>Calories: {calories}</h5>
-        <h5>Prep Time: {prepTime} min</h5>
+        <div className="title-image">
+          <h2>{title}</h2>
+          <img src={image} alt="some good shit" width="300" height="300"/>
+        </div>
+        <div className="description">
+          <div className="item">
+            <h5>Servings: {servings}</h5>
+          </div>
+          <div className="item">
+            <h5>Calories: {calories}</h5>
+          </div>
+          <div className="item">
+            <h5>Prep Time: {prepTime} min</h5>
+          </div>
+        </div>
       </Card>
     )
   }

@@ -99,60 +99,60 @@ class Home extends React.Component {
   render(){
     return(
       <div class = "container">
+        <Navbar>
+            <Navbar.Group align={Alignment.LEFT}>
+
+                <InputGroup
+                  value = {this.state.name}
+                  leftIcon="search"
+                  onChange={this.searchName}
+                  placeholder="search by name..."
+                  />
+
+                  <Navbar.Divider />
+
+
+                <NumericInput
+                value = {this.state.cals}
+                allowNumericCharactersOnly = {true}
+                majorStepSize = {100}
+                min = {0}
+                placeholder="search by max calories..."
+                onValueChange={this.searchCalories}
+                />
+
+                <Navbar.Divider />
+
+                <NumericInput
+                value = {this.state.prep}
+                allowNumericCharactersOnly = {true}
+                majorStepSize = {5}
+                min = {0}
+                placeholder="search by max prep time..."
+                onValueChange={this.searchPrep}
+                />
+
+                <Navbar.Divider />
+
+                <div class="bp3-select">
+                  <select value = {this.state.cat} onChange={this.searchCategory}>
+                    <option value = {null} selected>Choose a Category</option>
+                    <option value="Appetizer">Appetizer</option>
+                    <option value="Entree">Entree</option>
+                    <option value="Dessert">Dessert</option>
+                  </select>
+                </div>
+
+                <Navbar.Divider />
+
+                <Button onClick = {() => this.filterParams()}>Search</Button>
+
+                <Navbar.Divider />
+
+                <Button onClick = {() => this.clearState()}>Clear</Button>
+            </Navbar.Group>
+        </Navbar>
         <div class = "inner">
-          <Navbar>
-              <Navbar.Group align={Alignment.LEFT}>
-
-                  <InputGroup
-                    value = {this.state.name}
-                    leftIcon="search"
-                    onChange={this.searchName}
-                    placeholder="search by name..."
-                    />
-
-                    <Navbar.Divider />
-
-
-                  <NumericInput
-                  value = {this.state.cals}
-                  allowNumericCharactersOnly = {true}
-                  majorStepSize = {100}
-                  min = {0}
-                  placeholder="search by max calories..."
-                  onValueChange={this.searchCalories}
-                  />
-
-                  <Navbar.Divider />
-
-                  <NumericInput
-                  value = {this.state.prep}
-                  allowNumericCharactersOnly = {true}
-                  majorStepSize = {5}
-                  min = {0}
-                  placeholder="search by max prep time..."
-                  onValueChange={this.searchPrep}
-                  />
-
-                  <Navbar.Divider />
-
-                  <div class="bp3-select">
-                    <select value = {this.state.cat} onChange={this.searchCategory}>
-                      <option value = {null} selected>Choose a Category</option>
-                      <option value="Appetizer">Appetizer</option>
-                      <option value="Entree">Entree</option>
-                      <option value="Dessert">Dessert</option>
-                    </select>
-                  </div>
-
-                  <Navbar.Divider />
-
-                  <Button onClick = {() => this.filterParams()}>Search</Button>
-
-                  <Navbar.Divider />
-
-                  <Button onClick = {() => this.clearState()}>Clear</Button>
-              </Navbar.Group>
-          </Navbar>
 
           <div className="heading">
             <h3 class="bp3-heading">{this.state.resData ? 'Search Results...' : 'Welcome to Rowan and Enriques Recipe Site'}</h3>

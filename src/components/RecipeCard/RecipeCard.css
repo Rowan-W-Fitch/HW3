@@ -1,3 +1,12 @@
-.RecipeCard {
-  
+.description {
+  display: flex; /* or inline-flex */
+  justify-content: center;
+}
+
+.title-image {
+  text-align: center;
+}
+
+.item {
+  padding: 1em;
 }
